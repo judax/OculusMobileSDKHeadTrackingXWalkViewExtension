@@ -12,6 +12,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -67,7 +68,13 @@ public class OculusMobileSDKHeadTrackingURLEntryActivity extends Activity
 		  	try
 		  	{
 		  		new URL(url);
-					getPreferences(Activity.MODE_PRIVATE).edit().putString("url", url);
+		  		Editor editor = getPreferences(Activity.MODE_PRIVATE).edit();
+		  		editor.putString("url", url);
+		  		if (!editor.commit())
+		  		{
+			  		AlertDialog alertDialog = createAlertDialog(OculusMobileSDKHeadTrackingURLEntryActivity.this, "Error saving URL", "For an unknown reason, the URL could not be saved to the app preferences. The URL will be loaded but won't be available for a future executions.", null, 1, "Ok", null, null);
+			  		alertDialog.show();
+		  		}
 					Intent intent = new Intent(getApplicationContext(), OculusMobileSDKHeadTrackingXWalkViewActivity.class);
 					intent.putExtra("url", url);
 					startActivity(intent);
