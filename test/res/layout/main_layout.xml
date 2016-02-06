@@ -12,40 +12,44 @@
         android:gravity="center"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/androidIdTitleTextView"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="URL:"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <EditText
-                android:id="@+id/urlEditText"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/androidIdTitleTextView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10" />
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="URL: "
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <ImageButton
                 android:id="@+id/qrcodeImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:background="@drawable/button_qrcode0"
                 android:src="@drawable/button_qrcodereader_states" />
 
-        </LinearLayout>
+            <EditText
+                android:id="@+id/urlEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:ems="10" />
 
-        <Button
-            android:id="@+id/goButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/loadButton" />
+            <Button
+                android:id="@+id/goButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/loadButton" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>
