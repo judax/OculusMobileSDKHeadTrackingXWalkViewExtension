@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="generate-javadoc" basedir=".">
+	<property environment="env"/>
+    
+	<target name="generate-javadoc">
+		<javadoc packagenames="com.judax.oculusmobilesdkheadtracking.xwalk"
+		         sourcepath="src"
+		         defaultexcludes="yes"
+		         destdir="../javadoc"
+		         author="true"
+		         version="true"
+		         use="true"
+		         classpath="${env.ANDROID_HOME}/platforms/android-9/android.jar;../3rdparty/crosswalk-webview-16.45.421.19-arm/libs/xwalk_core_library_java.jar;../3rdparty/OculusMobileSDKHeadTracking/oculusmobilesdkheadtracking.jar"
+		         windowtitle="Oculus Mobile SDK Head Tracking Crosswalk Extension">
+		</javadoc>
+  	</target>
+</project>

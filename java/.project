@@ -30,7 +30,7 @@
 			<arguments>
 				<dictionary>
 					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/OculusMobileSDKHeadTrackingXWalkViewExtension_CopyJarToBuildAndToTests.launch</value>
+					<value>&lt;project&gt;/.externalToolBuilders/OculusMobileSDKHeadTrackingXWalkViewExtension_CopyJar_AntBuilder.launch</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>
@@ -39,7 +39,7 @@
 			<arguments>
 				<dictionary>
 					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/OculusMobileSDKHeadTrackingXWalkViewExtension_GenerateJavaDoc.launch</value>
+					<value>&lt;project&gt;/.externalToolBuilders/OculusMobileSDKHeadTrackingXWalkViewExtension_GenerateJavadoc_AntBuilder.launch</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>
