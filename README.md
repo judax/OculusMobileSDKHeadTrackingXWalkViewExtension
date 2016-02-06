@@ -51,6 +51,87 @@ You might as well want to create your own project that uses the libraries. The f
   4. Call the `getView` method of the instance to get a view that needs to be added somehow in the view hierarchy of your app.
   5. Call the `resume`, `pause` and `stop` methods of the instance in the corresponding `onResume`, `onPause` and `onDestroy` of the Activity.
 
+  Here is some source code of a possible Activity skeleton that uses the library:
+  ```
+  package com.judax.oculusmobilesdkheadtracking.xwalk.test;
+  
+  import org.xwalk.core.XWalkView;
+  
+  import com.judax.oculusmobilesdkheadtracking.xwalk.OculusMobileSDKHeadTrackingXWalkViewExtension;
+  
+  import android.app.Activity;
+  import android.content.Intent;
+  import android.os.Bundle;
+  import android.view.WindowManager;
+  import android.widget.FrameLayout;
+  
+  public class OculusMobileSDKHeadTrackingXWalkViewActivity extends Activity
+  {
+  	private XWalkView crosswalkView = null;
+  	private OculusMobileSDKHeadTrackingXWalkViewExtension oculusMobileSDKHeadTrackingXWalkViewExtension = null;
+  	
+  	@Override
+  	protected void onCreate(Bundle savedInstanceState)
+  	{
+  		super.onCreate(savedInstanceState);
+  
+  		FrameLayout layout = new FrameLayout(this);
+  
+  		// Create the crosswalk webview
+  		crosswalkView = new XWalkView(this);
+  
+  		// The crosswalk extension to provide the head tracking to JS
+  		oculusMobileSDKHeadTrackingXWalkViewExtension = new OculusMobileSDKHeadTrackingXWalkViewExtension();
+  		oculusMobileSDKHeadTrackingXWalkViewExtension.start(this);
+  			
+  		layout.addView(oculusMobileSDKHeadTrackingXWalkViewExtension.getView());
+  		layout.addView(crosswalkView);
+  
+  		setContentView(layout);
+  		
+  		// Force the screen to stay on, rather than letting it dim and shut off
+  		// while the user is watching a movie.
+  		getWindow().addFlags( WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON );
+  
+  		// Force screen brightness to stay at maximum
+  		WindowManager.LayoutParams params = getWindow().getAttributes();
+  		params.screenBrightness = 1.0f;
+  		getWindow().setAttributes(params);
+  		
+  		String url = "";
+  		Intent intent = getIntent();
+  		if (intent != null)
+  		{
+  			Bundle extras = intent.getExtras(); 
+  			if (extras != null) 
+  			{
+  				url = extras.getString("url");
+  			}
+  		}
+  		crosswalkView.load(url, null);		
+  	}
+  	
+  	@Override protected void onResume()
+  	{
+  		super.onResume();
+  		oculusMobileSDKHeadTrackingXWalkViewExtension.resume();
+  	}
+  
+  	@Override protected void onPause()
+  	{
+  		oculusMobileSDKHeadTrackingXWalkViewExtension.pause();
+  		super.onPause();
+  	}
+  
+  	@Override
+  	protected void onDestroy()
+  	{
+  		oculusMobileSDKHeadTrackingXWalkViewExtension.stop();
+  		super.onDestroy();
+  	}
+  }
+  ```
+
 4. Include your Oculus Signature File (OSIG) in the assets folder of your project. You can generate yout Oculus OSIG file at [https://developer.oculus.com/osig/](https://developer.oculus.com/osig/). Check the section above on how to setup your Samsung Device for Gear VR development if necessary.
 
 5. Most likely, you will want to use WebGL in your project. Crosswalk, Chromium, by default does not activate WebGL. In order to enable it you will need to create a text file named `xwak-command-line` inside the `assets` folder of your project. Inside the file you will need to add the following command:
