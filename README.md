@@ -1,8 +1,8 @@
 # OculusMobileSDKHeadTrackingXWalkViewExtension
 
-A Crosswalk View extension to expose the [OculusMobileSDKHeadTracking](https://github.com/judax/OculusMobileSDKHeadTracking) mechanism to javascript inside the crosswalk webview.
+A Crosswalk View extension to expose the [OculusMobileSDKHeadTracking](https://github.com/judax/OculusMobileSDKHeadTracking) library to javascript inside the crosswalk webview.
 
-The OculusMobileSDKHeadTracking project allows to access just the head tracking part from the Oculus Mobile SDK. Using a Crosswalk Extension, this project provides a javascript API so the head tracking information can be consumed from a web application.
+The [OculusMobileSDKHeadTracking](https://github.com/judax/OculusMobileSDKHeadTracking) project allows to access just the head tracking part from the Oculus Mobile SDK. Using a Crosswalk Extension, this project provides a javascript API so the head tracking information can be consumed from a web application.
 
 ## Folder Structure
 
@@ -24,11 +24,11 @@ The OculusMobileSDKHeadTracking project allows to access just the head tracking 
 
 ### Use the `test` project
 
-The easiest way to have a glimpse on how to use the library is to check the `test` project. The project is ready to be executed, so just import it to Eclipse. It provides a full "broser-like" experience as it uses the crosswalk webview but it also provides a user interface to introduce the URL to be loaded. The project also has Google's [Zebra Crossing](https://github.com/zxing/zxing) library included to be able to recognize QRCodes, simplifying the URL text introduction. Use this [QRCode Generator](https://www.the-qrcode-generator.com/) to be able to introduce your URLs easily. 
+The easiest way to have a glimpse on how to use the library is to check the `test` project. The project is ready to be executed, so just import it to Eclipse. It provides a full "broser-like" experience as it uses the crosswalk webview but it also provides a user interface to introduce the URL to be loaded. The project also has Google's [Zebra Crossing](https://github.com/zxing/zxing) library included to be able to recognize QRCodes, simplifying the URL text introduction. You can use this [QRCode Generator](https://www.the-qrcode-generator.com/) to create QRCodes that represent URLs. 
 
 Although every element that is needed to be able to create your own APK is provided, there are two missing pieces:
 
-1. **Copy your OSIG file to the `assets` folder:** In order to work on a Samsung Device you will need to generate your OSIG file and copy it to the `assets` folder of the `test` project. If you do not know what the OSIG file is, you can get some information [here](https://developer.oculus.com/osig/). You may also be interested in knowing more about how to [setup you Samsung device for Gear VR development](https://github.com/judax/OculusMobileSDKHeadTracking#setup-your-samsungoculus-gear-vr).
+1. **Copy your OSIG file to the `assets` folder:** In order to work on a Samsung Device you will need to generate your OSIG file and copy it to the `assets` folder of the `test` project. If you do not know what the OSIG file is, you can get some information [here](https://developer.oculus.com/osig/). You may also be interested in knowing more about how to [setup your Samsung device for Gear VR development](https://github.com/judax/OculusMobileSDKHeadTracking#setup-your-samsungoculus-gear-vr).
 
 2. **Import and link the Crosswalk webview Eclipse project:** Although the crosswalk webview project is provided in the `3rdparty/crosswalk-webview-16.45.421.19-arm` folder, you will need to:
 
@@ -41,7 +41,7 @@ Although every element that is needed to be able to create your own APK is provi
 
 ### Use the library in your own project
 
-You might as well want to create your own project that uses the libraries. The final products of this library are stored in the `build` folder. Anyway, remember that this project is dependent on the OculusMobileSDKHeadTracking library and some third party libraries (Crosswalk and the Oculus Mobile SDK). Follow these steps to be able to include the final library in your projects.
+You might as well want to create your own project that uses the libraries. The final products of this library are stored in the `build` folder. Anyway, remember that this project is dependent on the [OculusMobileSDKHeadTracking](https://github.com/judax/OculusMobileSDKHeadTracking) library and some third party libraries (Crosswalk and the Oculus Mobile SDK). Follow these steps to be able to include the final library in your projects.
 
 1. The OculusMobileSDKHeadTrackingXWalkViewExtension final libraries are available at the `build`. Just copy all the content of this `build` folder to the `libs` folder of your Eclipse project.
 
@@ -142,9 +142,9 @@ You might as well want to create your own project that uses the libraries. The f
   }
   ```
 
-4. Include your Oculus Signature File (OSIG) in the assets folder of your project. You can generate yout Oculus OSIG file at [https://developer.oculus.com/osig/](https://developer.oculus.com/osig/). Check the section above on how to setup your Samsung Device for Gear VR development if necessary.
+4. Include your Oculus Signature File (OSIG) in the assets folder of your project. You can generate yout Oculus OSIG file at [https://developer.oculus.com/osig/](https://developer.oculus.com/osig/). You can also read more about how to [setup your Samsung device for Gear VR development](https://github.com/judax/OculusMobileSDKHeadTracking#setup-your-samsungoculus-gear-vr).
 
-5. Most likely, you will want to use WebGL in your project. Crosswalk, Chromium, by default does not activate WebGL. In order to enable it you will need to create a text file named `xwak-command-line` inside the `assets` folder of your project. Inside the file you will need to add the following command:
+5. Most likely, you will want to use WebGL in your project. Crosswalk (Chromium) by default does not activate WebGL. In order to enable it you will need to create a text file named `xwak-command-line` inside the `assets` folder of your project. Inside the file you will need to add the following command:
 
   `xwalk --ignore-gpu-blacklist`
 
@@ -152,13 +152,17 @@ You might as well want to create your own project that uses the libraries. The f
 
 **Work in progress**
 
+## WebVR
+
+Although this extension exposes a "proprietary" JavaScript API, there is a proposal for a [Web based Virtual Reality API](https://developer.mozilla.org/en-US/docs/Web/API/WebVR_API). [In a different repository](https://github.com/judax/OculusMobileSDKHeadTrackingWebVR), there is an attempt to provide the WebVR API using the extension underneath. Because of Crosswalk extension nature, I haven't been able to automatically inject the WebVR API so you will need to include the JS file in your project in order to be able to use it. I would be more than happy to get suggestions on how to solve this issue and inject the API automatically. It seems that Crosswalk extensions inject only when the extension instance object is referenced at least once (lazy loading).
+
 ## Related Projects
 
 * [OculusMobileSDKHeadTracking](https://github.com/judax/OculusMobileSDKHeadTracking): The Oculus Mobile SDK head tracking handling basic library.
 * [OculusMobileSDKHeadTrackingCordovaPlugin](https://github.com/judax/cordova-plugin-oculusmobilesdkheadtracking.git): A Cordova plugin to expose the Oculus Mobile SDK Head Tracking in a JavaScript/browser based environment.
 * [OculusMobileSDKHeadTrackingWebVR](https://github.com/judax/OculusMobileSDKHeadTrackingWebVR): A JavaScript file that injects the WebVR API using the underlying Oculus Mobile SDK Head Tracking mechanism exposed to JS through a Crosswalk extension or a Cordova plugin.
 
-IDEAS
+## Future work, improvements and random ideas
 
-* Talk about enabling webgl using the command line file inside assets.
-* Future work: Include crosswalk as an AAR
+* Include crosswalk as an AAR.
+* Provide an Android Studio based solution too.
