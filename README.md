@@ -4,6 +4,8 @@ A Crosswalk View extension to expose the [OculusMobileSDKHeadTracking](https://g
 
 The [OculusMobileSDKHeadTracking](https://github.com/judax/OculusMobileSDKHeadTracking) project allows to access just the head tracking part from the Oculus Mobile SDK. Using a Crosswalk Extension, this project provides a javascript API so the head tracking information can be consumed from a web application.
 
+This project pursues a bigger goal: to ultimately expose the WebVR API inside a Crosswalk webview. In order to do that, an additional project is needed: the [OculusMobileSDKHeadTrackingWebVR](https://github.com/judax/OculusMobileSDKHeadTrackingWebVR), a JS file that exposes the WebVR shim that uses this underlying crosswalk extension.
+
 ## Folder Structure
 
 * **3rdparty**: The third party libraries used to build this library. The Oculus Mobile SDK, the OculudMobileSDKHeadTracking, the Crosswalk WebView and Zebra Crossing.
