@@ -24,11 +24,11 @@ The [OculusMobileSDKHeadTracking](https://github.com/judax/OculusMobileSDKHeadTr
 
 ### Use the `test` project
 
-The easiest way to have a glimpse on how to use the library is to check the `test` project. The project is ready to be executed, so just import it to Eclipse. It provides a full "broser-like" experience as it uses the crosswalk webview but it also provides a user interface to introduce the URL to be loaded. The project also has Google's [Zebra Crossing](https://github.com/zxing/zxing) library included to be able to recognize QRCodes, simplifying the URL text introduction. You can use this [QRCode Generator](https://www.the-qrcode-generator.com/) to create QRCodes that represent URLs. 
+The easiest way to have a glimpse on how to use the library is to check the `test` project. The project is ready to be executed, so just import it to Eclipse. It provides a full "browser-like" experience as it uses the crosswalk webview but it also provides a user interface to introduce the URL to be loaded. The project also has Google's [Zebra Crossing](https://github.com/zxing/zxing) library included to be able to recognize QRCodes, simplifying the URL text introduction. You can use this [QRCode Generator](https://www.the-qrcode-generator.com/) to create QRCodes that represent URLs. 
 
 Although every element that is needed to be able to create your own APK is provided, there are two missing pieces:
 
-1. **Copy your OSIG file to the `assets` folder:** In order to work on a Samsung Device you will need to generate your OSIG file and copy it to the `assets` folder of the `test` project. If you do not know what the OSIG file is, you can get some information [here](https://developer.oculus.com/osig/). You may also be interested in knowing more about how to [setup your Samsung device for Gear VR development](https://github.com/judax/OculusMobileSDKHeadTracking#setup-your-samsungoculus-gear-vr).
+1. **Copy your OSIG file to the `assets` folder:** In order to work on a Samsung Device you will need to generate your OSIG file and copy it to the `assets` folder of the `test` project. If you do not know what the OSIG file is, you can get some information [here](https://developer.oculus.com/osig/). You may also be interested in knowing more about how to [setup your Samsung device for Gear VR development](https://github.com/judax/OculusMobileSDKHeadTracking#setup-your-samsungoculus-gear-vr). Please, make sure that the "Gear VR Service" app is up and running on your Samsung device (check it appears in the "Application Manager" app list).
 
 2. **Import and link the Crosswalk webview Eclipse project:** Although the crosswalk webview project is provided in the `3rdparty/crosswalk-webview-16.45.421.19-arm` folder, you will need to:
 
@@ -36,6 +36,8 @@ Although every element that is needed to be able to create your own APK is provi
   2. Right click on the OculusMobileSDKHeadTrackingXWalkViewExtensionTest project and go to `Properties`. Then select `Android` and at the bottom (you might need to scroll down), remove what is very likely an link error to the crosswalk webview project. Then, press on the `Add` button and select the `crosswalk-webview-16.45.421.19-arm` project (that is an Android library).
 
   ![How the link to the crosswalk](markdown/images/crosswalklibrarylink.png "How the link to the crosswalk Eclipse library project should look like in your project' Android properties")
+
+  **NOTE:** It may happen that the crosswalk project already is shown as linked to the test project (a green check).
 
   More information on how to use the crosswalk webview can be found [here](https://crosswalk-project.org/documentation/embedding_crosswalk.html).
 
@@ -152,6 +154,13 @@ You might as well want to create your own project that uses the libraries. The f
 
 **Work in progress**
 
+If you would like to use the [WebVR API](https://developer.mozilla.org/en-US/docs/Web/API/WebVR_API) along with this extension, please, check the [WebVR shim](https://github.com/judax/OculusMobileSDKHeadTrackingWebVR).
+
+If you would like to directly call the JS API that is exposed with this extension (not recommended) you may:
+
+* Learn from the [WebVR JavaScript file](https://github.com/judax/OculusMobileSDKHeadTrackingWebVR/blob/master/OculusMobileSDKHeadTrackingWebVR.js) and see how the API is used internally.
+* If you know how Crosswalk WebView extensions work, check the [OculusMobileSDKHeadTrackingXWalkViewExtension.java file](https://github.com/judax/OculusMobileSDKHeadTrackingXWalkViewExtension/blob/master/java/src/com/judax/oculusmobilesdkheadtracking/xwalk/OculusMobileSDKHeadTrackingXWalkViewExtension.java).
+
 ## WebVR
 
 Although this extension exposes a "proprietary" JavaScript API, there is a proposal for a [Web based Virtual Reality API](https://developer.mozilla.org/en-US/docs/Web/API/WebVR_API). [In a different repository](https://github.com/judax/OculusMobileSDKHeadTrackingWebVR), there is an attempt to provide the WebVR API using the extension underneath. Because of Crosswalk extension nature, I haven't been able to automatically inject the WebVR API so you will need to include the JS file in your project in order to be able to use it. I would be more than happy to get suggestions on how to solve this issue and inject the API automatically. It seems that Crosswalk extensions inject only when the extension instance object is referenced at least once (lazy loading).
@@ -159,8 +168,8 @@ Although this extension exposes a "proprietary" JavaScript API, there is a propo
 ## Related Projects
 
 * [OculusMobileSDKHeadTracking](https://github.com/judax/OculusMobileSDKHeadTracking): The Oculus Mobile SDK head tracking handling basic library.
-* [OculusMobileSDKHeadTrackingCordovaPlugin](https://github.com/judax/cordova-plugin-oculusmobilesdkheadtracking.git): A Cordova plugin to expose the Oculus Mobile SDK Head Tracking in a JavaScript/browser based environment.
-* [OculusMobileSDKHeadTrackingWebVR](https://github.com/judax/OculusMobileSDKHeadTrackingWebVR): A JavaScript file that injects the WebVR API using the underlying Oculus Mobile SDK Head Tracking mechanism exposed to JS through a Crosswalk extension or a Cordova plugin.
+* [OculusMobileSDKHeadTrackingCordovaPlugin](https://github.com/judax/cordova-plugin-oculusmobilesdkheadtracking.git): A Cordova plugin to expose the Oculus Mobile SDK Head Tracking in a JavaScript/browser based environment (under development, not fully functional yet).
+* [OculusMobileSDKHeadTrackingWebVR](https://github.com/judax/OculusMobileSDKHeadTrackingWebVR): A JavaScript file that injects the WebVR API using the underlying Oculus Mobile SDK Head Tracking mechanism exposed to JS through the Crosswalk extension or the Cordova plugin.
 
 ## Future work, improvements and random ideas
 
