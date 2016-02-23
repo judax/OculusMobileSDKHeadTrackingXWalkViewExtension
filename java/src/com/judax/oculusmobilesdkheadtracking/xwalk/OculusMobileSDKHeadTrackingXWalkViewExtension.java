@@ -211,11 +211,6 @@ public class OculusMobileSDKHeadTrackingXWalkViewExtension
 				xwalkExtension.postMessage(xwalkExtension.instanceID, createStartEventString());
 			}
 		}
-
-		@Override
-		public void headTrackingUpdated(OculusMobileSDKHeadTracking oculusMobileSDKHeadTracking, OculusMobileSDKHeadTrackingData data)
-		{
-		}
 	};
 	
 	public void start(Activity activity)
