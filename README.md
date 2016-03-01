@@ -24,7 +24,13 @@ This project pursues a bigger goal: to ultimately expose the WebVR API inside a 
 
 ## How to use the library
 
-### Use the `test` project
+### **First option:** Contact me through github and provide your device id or OSIG file
+
+I know, it sounds bad that you need to contact me to be able to test this project, but Oculus and Samsung requires that you have an OSIG file inside your Android app in order to work inside the Gear VR. Send me you OSIG file (or provide me with your device ID-s) and I will provide you with an APK so you can start testing the project right away.
+
+Learn [how to obtain your OSIG file](https://developer.oculus.com/osig/) or just obtain your device ID with [this app](https://play.google.com/store/apps/details?id=com.evozi.deviceid&hl=en).
+
+### **Second option:** Use the `test` project
 
 The easiest way to have a glimpse on how to use the library is to check the `test` project. The project is ready to be executed, so just import it to Eclipse. It provides a full "browser-like" experience as it uses the crosswalk webview but it also provides a user interface to introduce the URL to be loaded. The project also has Google's [Zebra Crossing](https://github.com/zxing/zxing) library included to be able to recognize QRCodes, simplifying the URL text introduction. You can use this [QRCode Generator](https://www.the-qrcode-generator.com/) to create QRCodes that represent URLs. 
 
