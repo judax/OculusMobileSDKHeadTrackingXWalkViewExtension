@@ -25,6 +25,9 @@ public class OculusMobileSDKHeadTrackingXWalkViewActivity extends Activity
     // Create the crosswalk webview
   	crosswalkView = new XWalkView(this);
 
+  	// Clear the cache
+  	crosswalkView.clearCache(true);
+
     // The crosswalk extension to provide the head tracking to JS
   	oculusMobileSDKHeadTrackingXWalkViewExtension = new OculusMobileSDKHeadTrackingXWalkViewExtension();
   	oculusMobileSDKHeadTrackingXWalkViewExtension.start(this);
