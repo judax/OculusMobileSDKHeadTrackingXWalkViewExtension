@@ -305,6 +305,7 @@ public class OculusMobileSDKHeadTrackingURLEntryActivity extends Activity
 				urlHistoryListViewEntryTextView.setText(urlHistoryURLs.getString(position));
 				CheckBox urlHistoryListViewEntryCheckBox = (CheckBox)view.findViewById(R.id.urlHistoryEntryCheckbox);
 				urlHistoryListViewEntryCheckBox.setTag(position);
+				urlHistoryListViewEntryCheckBox.setChecked(false);
 				urlHistoryListViewEntryCheckBox.setOnCheckedChangeListener(checkedChangeListener);
 			}
 			catch(JSONException e)
