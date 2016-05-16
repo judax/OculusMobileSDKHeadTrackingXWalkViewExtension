@@ -26,13 +26,13 @@ This project pursues a bigger goal: to ultimately expose the WebVR API inside a 
 
 ### **First option:** Contact me through github and provide your device id or OSIG file
 
-I know, it sounds bad that you need to contact me to be able to test this project, but Oculus and Samsung requires that you have an OSIG file inside your Android app in order to work inside the Gear VR. Send me you OSIG file (or provide me with your device ID-s) and I will provide you with an APK so you can start testing the project right away.
+I know, it sounds bad that you need to contact me to be able to test this project, but Oculus and Samsung requires that you have an [OSIG file](https://developer.oculus.com/osig/) inside your Android app in order to work inside the Gear VR. It would be really easy to provide an APK but without the OSIG file, it won't work on your device. Send me you OSIG file (or provide me with your device ID-s) and I will provide you with an APK so you can start testing the project right away.
 
 Learn [how to obtain your OSIG file](https://developer.oculus.com/osig/) or just obtain your device ID with [this app](https://play.google.com/store/apps/details?id=com.evozi.deviceid&hl=en).
 
 ### **Second option:** Use the `test` project
 
-The easiest way to have a glimpse on how to use the library is to check the `test` project. The project is ready to be executed, so just import it to Eclipse. It provides a full "browser-like" experience as it uses the crosswalk webview but it also provides a user interface to introduce the URL to be loaded. The project also has Google's [Zebra Crossing](https://github.com/zxing/zxing) library included to be able to recognize QRCodes, simplifying the URL text introduction. You can use this [QRCode Generator](https://www.the-qrcode-generator.com/) to create QRCodes that represent URLs. 
+The easiest way to have a glimpse on how to use the library is to check the `test` project. The project is ready to be executed, so just import it to Eclipse. It provides a full "browser-like" experience as it uses the crosswalk webview but it also provides a user interface to introduce the URL to be loaded. The project also has Google's [Zebra Crossing](https://github.com/zxing/zxing) library included to be able to recognize QRCodes, simplifying the URL text introduction. You can use this [QRCode Generator](https://www.the-qrcode-generator.com/) to create QRCodes that represent URLs if you want to. 
 
 Although every element that is needed to be able to create your own APK is provided, there are two missing pieces:
 
@@ -160,9 +160,9 @@ You might as well want to create your own project that uses the libraries. The f
 
 ## The JS API
 
-**Work in progress**
+**Work in progress: Missing a thorough explanation of the extension JS API**
 
-If you would like to use the [WebVR API](https://developer.mozilla.org/en-US/docs/Web/API/WebVR_API) along with this extension, please, check the [WebVR shim](https://github.com/judax/OculusMobileSDKHeadTrackingWebVR).
+If you would like to use the [WebVR API](https://developer.mozilla.org/en-US/docs/Web/API/WebVR_API) along with this extension, please, check the [WebVR shim](https://github.com/judax/OculusMobileSDKHeadTrackingWebVR). The test included in this repo automatically injects the shim/polyfill when the page is loaded.
 
 If you would like to directly call the JS API that is exposed with this extension (not recommended) you may:
 
@@ -171,7 +171,7 @@ If you would like to directly call the JS API that is exposed with this extensio
 
 ## WebVR
 
-Although this extension exposes a "proprietary" JavaScript API, there is a proposal for a [Web based Virtual Reality API](https://developer.mozilla.org/en-US/docs/Web/API/WebVR_API). [In a different repository](https://github.com/judax/OculusMobileSDKHeadTrackingWebVR), there is an attempt to provide the WebVR API using the extension underneath. Because of Crosswalk extension nature, I haven't been able to automatically inject the WebVR API so you will need to include the JS file in your project in order to be able to use it. I would be more than happy to get suggestions on how to solve this issue and inject the API automatically. It seems that Crosswalk extensions inject only when the extension instance object is referenced at least once (lazy loading).
+Although this extension exposes a "proprietary" JavaScript API, there is [a WebVR API polyfill](https://github.com/judax/OculusMobileSDKHeadTrackingWebVR) that is automatically injected in the test example included in this repository. You can also include the script file directly in your web app before any other script (if you are creating your own android apps/projects). Please, check the [OculusMobileSDKHeadTrackingWebVR](https://github.com/judax/OculusMobileSDKHeadTrackingWebVR) repository for more information about the WebVR API polyfill.
 
 ## Related Projects
 
