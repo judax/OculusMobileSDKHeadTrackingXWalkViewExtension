@@ -222,7 +222,7 @@ public class OculusMobileSDKHeadTrackingXWalkViewActivity extends Activity
 						{
 							message = "The given URL '" + source.getUrl() + "' is not correct.";
 						}
-			  		AlertDialog alertDialog = createAlertDialog(OculusMobileSDKHeadTrackingXWalkViewActivity.this, "Error loading JS extension file", message +  " The WebVR API polyfill won't be present. Load the page anyway?", new DialogInterface.OnClickListener()
+						AlertDialog alertDialog = createAlertDialog(OculusMobileSDKHeadTrackingXWalkViewActivity.this, "Error loading JS extension file", message +  " The WebVR API polyfill won't be present. Load the page anyway?", new DialogInterface.OnClickListener()
 						{
 							@Override
 							public void onClick(DialogInterface dialog, int which)
