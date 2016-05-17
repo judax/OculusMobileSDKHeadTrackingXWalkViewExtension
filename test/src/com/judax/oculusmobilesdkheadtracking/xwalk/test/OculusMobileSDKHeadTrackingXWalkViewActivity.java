@@ -13,7 +13,9 @@ import org.xwalk.core.XWalkView;
 import com.judax.oculusmobilesdkheadtracking.xwalk.OculusMobileSDKHeadTrackingXWalkViewExtension;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,8 +26,24 @@ public class OculusMobileSDKHeadTrackingXWalkViewActivity extends Activity
 {
   private XWalkView crosswalkView = null;
 	private OculusMobileSDKHeadTrackingXWalkViewExtension oculusMobileSDKHeadTrackingXWalkViewExtension = null;
-	private String oculusMobileSDKHeadTrackingWebVRJSCode = null;
 	
+	private static AlertDialog createAlertDialog(Context context, String title, String message, DialogInterface.OnClickListener onClickListener, int numberOfButtons, String yesButtonText, String noButtonText, String cancelButtonText)
+	{
+		AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+		alertDialog.setTitle(title);
+		alertDialog.setMessage(message);
+		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, yesButtonText, onClickListener);
+		if (numberOfButtons > 1)
+		{
+			alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, noButtonText, onClickListener);
+		}
+		if (numberOfButtons > 2)
+		{
+			alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, cancelButtonText, onClickListener);
+		}
+		return alertDialog;
+	}
+		
 	private class CrosswalkResourceClientInjectJSCode extends XWalkResourceClient 
 	{
 		private String url;
@@ -42,7 +60,7 @@ public class OculusMobileSDKHeadTrackingXWalkViewActivity extends Activity
 		public void onLoadStarted(XWalkView view, String url) 
 		{
       super.onLoadStarted(view, url);
-      if (url.equals(this.url))
+      if (url.equals(this.url) && jsCode != null)
       {
       	view.evaluateJavascript(jsCode, null);
       	System.out.println("JUDAX: JSCode  injected!");
@@ -50,15 +68,15 @@ public class OculusMobileSDKHeadTrackingXWalkViewActivity extends Activity
 		}				
 	}
 	
-	public class ReadFromURL extends AsyncTask<Void, Void, Void>
+	public class ReadFromURLAsyncTask extends AsyncTask<Void, Void, Void>
 	{
 		private String url;
-		private Runnable executeOnPost;
-		
-		public ReadFromURL(String url, Runnable executeOnPost)
+		private ReadFromURLAsyncTaskListener listener;
+
+		public ReadFromURLAsyncTask(String url, ReadFromURLAsyncTaskListener listener)
 		{
 			this.url = url;
-			this.executeOnPost = executeOnPost;
+			this.listener = listener;
 		}
 		
 		@Override
@@ -66,26 +84,34 @@ public class OculusMobileSDKHeadTrackingXWalkViewActivity extends Activity
 		{
 			try
 			{
-				oculusMobileSDKHeadTrackingWebVRJSCode = readFromURL(url);
+				String s = readFromURL(url);
+				listener.success(this, s);
 			}
 			catch (MalformedURLException e)
 			{
 				System.err.println("JUDAX: MalformedURLException while reading the '" + url + "' file.");
 				e.printStackTrace();
+				listener.exception(this, e);
 			}
 			catch (IOException e)
 			{
 				System.err.println("JUDAX: IOException while reading the '" + url + "' file.");
 				e.printStackTrace();
+				listener.exception(this, e);
 			}
 			return null;
 		}
 
-		@Override
-		protected void onPostExecute(Void result)
+		public String getUrl()
 		{
-			executeOnPost.run();
+			return url;
 		}
+	}
+	
+	private interface ReadFromURLAsyncTaskListener
+	{
+		public void success(ReadFromURLAsyncTask source, String s);
+		public void exception(ReadFromURLAsyncTask source, Exception e);
 	}
 	
 	private static String readFromInputStream(InputStream inputStream) throws IOException
@@ -104,11 +130,11 @@ public class OculusMobileSDKHeadTrackingXWalkViewActivity extends Activity
 		return sb.toString();
 	}
 	
-	private static String readFromAssets(Context context, String filename)
-			throws IOException
-	{
-		return readFromInputStream(context.getAssets().open(filename));
-	}	
+//	private static String readFromAssets(Context context, String filename)
+//			throws IOException
+//	{
+//		return readFromInputStream(context.getAssets().open(filename));
+//	}	
 	
 	private static String readFromURL(String url) throws IOException
 	{
@@ -147,11 +173,10 @@ public class OculusMobileSDKHeadTrackingXWalkViewActivity extends Activity
 		getWindow().setAttributes(params);
 		
 		// Load the extension JS file from github
-		new ReadFromURL("https://raw.githubusercontent.com/judax/OculusMobileSDKHeadTrackingWebVR/master/js/OculusMobileSDKHeadTrackingWebVR.js", new Runnable()
+		new ReadFromURLAsyncTask("https://raw.githubusercontent.com/judax/OculusMobileSDKHeadTrackingWebVR/master/js/OculusMobileSDKHeadTrackingWebVR.js", new ReadFromURLAsyncTaskListener()
 		{
-			// When the file is read, launch the crosswalk webview listening to the resources to inject the read js code.
 			@Override
-			public void run()
+			public void success(ReadFromURLAsyncTask source, final String jsCode)
 			{
 				runOnUiThread(new Runnable()
 				{
@@ -170,9 +195,49 @@ public class OculusMobileSDKHeadTrackingXWalkViewActivity extends Activity
 							}
 						}
 						
-						crosswalkView.setResourceClient(new CrosswalkResourceClientInjectJSCode(crosswalkView, url, oculusMobileSDKHeadTrackingWebVRJSCode));
+						if (jsCode != null)
+						{
+							crosswalkView.setResourceClient(new CrosswalkResourceClientInjectJSCode(crosswalkView, url, jsCode));
+						}
 						
 						crosswalkView.load(url, null);		
+					}
+				});
+			}
+			
+			@Override
+			public void exception(final ReadFromURLAsyncTask source, final Exception e)
+			{
+				runOnUiThread(new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						String message = null;
+						if (e instanceof IOException)
+						{
+				  		message = "Error while loading the JS extension file from the given URL '" + source.getUrl() + "'.";
+						}
+						else if (e instanceof MalformedURLException)
+						{
+							message = "The given URL '" + source.getUrl() + "' is not correct.";
+						}
+			  		AlertDialog alertDialog = createAlertDialog(OculusMobileSDKHeadTrackingXWalkViewActivity.this, "Error loading JS extension file", message +  " The WebVR API polyfill won't be present. Load the page anyway?", new DialogInterface.OnClickListener()
+						{
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								if (which == DialogInterface.BUTTON1)
+								{
+									success(source, null);
+								}
+								else 
+								{
+									OculusMobileSDKHeadTrackingXWalkViewActivity.this.finish();
+								}
+							}
+						}, 2, "Yes", "No", null);
+			  		alertDialog.show();
 					}
 				});
 			}
