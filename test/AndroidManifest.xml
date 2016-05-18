@@ -10,12 +10,14 @@
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+		<meta-data android:name="com.samsung.android.vr.application.mode" android:value="vr_only"/>
         <activity
             android:name="com.judax.oculusmobilesdkheadtracking.xwalk.test.OculusMobileSDKHeadTrackingXWalkViewActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
