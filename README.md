@@ -24,14 +24,14 @@ This project pursues a bigger goal: to ultimately expose the WebVR API inside a 
 
 ## How to use the library
 
-### **Setup you Gear VR device**
+### **Setup your Gear VR device**
 
-No matter the option you choose to test the library, you always will need to setup your device for development. Read how to [Setup your Samsung/Oculus Gear VR](https://github.com/judax/OculusMobileSDKHeadTracking#setup-your-samsungoculus-gear-vr). Basically you will need:
+No matter the option you choose to test the library, you will always need to setup your device for development. Read how to [Setup your Samsung/Oculus Gear VR](https://github.com/judax/OculusMobileSDKHeadTracking#setup-your-samsungoculus-gear-vr). Basically you will need to:
 
 1. Enable the Gear VR Developer Mode.
 2. Disable the Oculus Home app.
 
-If you are not sure how to achieve this, read the article. If not, choose between the following two options.
+Once you have your device setup, you can choose one of the following options:
 
 ### **First option:** Contact me through github and provide your device id or OSIG file
 
