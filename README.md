@@ -29,13 +29,13 @@ This project pursues a bigger goal: to ultimately expose the WebVR API inside a 
 No matter the option you choose to test the library, you will always need to setup your device for development. Read how to [Setup your Samsung/Oculus Gear VR](https://github.com/judax/OculusMobileSDKHeadTracking#setup-your-samsungoculus-gear-vr). Basically you will need to:
 
 1. Enable the Gear VR Developer Mode.
-2. Disable the Oculus Home app.
+2. Disable the Oculus Home app. **NOTE: This is step is no longer entirely needed. Check [the documentation](https://github.com/judax/OculusMobileSDKHeadTracking#setup-your-samsungoculus-gear-vr) to learn more about it/why.***
 
 Once you have your device setup, you can choose one of the following options:
 
 ### **First option:** Contact me through github and provide your device id or OSIG file
 
-I know, it sounds bad that you need to contact me to be able to test this project, but Oculus and Samsung requires that you have an [OSIG file](https://developer.oculus.com/osig/) inside your Android app in order to work inside the Gear VR. It would be really easy to provide an APK but without the OSIG file, it won't work on your device. Send me you OSIG file (or provide me with your device ID-s) and I will provide you with an APK so you can start testing the project right away.
+I know, it sounds bad that you need to contact me to be able to test this project. Of course, this is not mandatory. You can choose to setup and build the project yourself, but if you are not familiar with Android development, it could be challenging. I would love to provide a simple APK that you could install, but Oculus and Samsung require that you have an [OSIG file](https://developer.oculus.com/osig/) inside your Android app in order to work inside the Gear VR. Send me you OSIG file (or provide me with your device ID-s) and I will provide you with an APK so you can start testing the project right away.
 
 Learn [how to obtain your OSIG file](https://developer.oculus.com/osig/) or just obtain your device ID with [this app](https://play.google.com/store/apps/details?id=com.evozi.deviceid&hl=en).
 
